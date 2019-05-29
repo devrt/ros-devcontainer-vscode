@@ -1,0 +1,21 @@
+version: '2'
+services:
+  xserver:
+    image: devrt/xserver
+    ports:
+      - "8080:80"
+  workspace:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: tail -f /dev/null
+    volumes:
+      - .:/workspace
+      - ~/.gitconfig:/root/.gitconfig
+    environment:
+      - DISPLAY=:0
+      - QT_X11_NO_MITSHM=1
+    volumes_from:
+      - xserver
+    depends_on:
+      - xserver
