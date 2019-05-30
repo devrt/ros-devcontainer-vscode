@@ -8,10 +8,10 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    command: tail -f /dev/null
+    command: sleep infinity
     volumes:
       - .:/workspace
-      - ~/.gitconfig:/root/.gitconfig
+      - ~/.gitconfig:/home/developer/.gitconfig
     environment:
       - DISPLAY=:0
       - QT_X11_NO_MITSHM=1
