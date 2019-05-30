@@ -26,17 +26,10 @@
         {
             "label": "xserver",
             "type": "shell",
-            "command": "echo ${input:browser-preview}"
-        }
-    ],
-    "inputs": [
-        {
-            "id": "browser-preview",
-            "type": "command",
-            "command": "browser-preview.openPreview",
-            "args": {
-                "url": "http://localhost:3000/",
-            }
+            "command": "echo",
+            "args": [
+                "please open http://localhost:3000/ using your favorite browser",
+            ]
         }
     ]
 }
