@@ -28,8 +28,30 @@
             "type": "shell",
             "command": "echo",
             "args": [
-                "please open http://localhost:3000/ using your favorite browser",
+                "Please open http://localhost:3000/ using your favorite browser",
             ]
-        }
+        },
+        {
+            "label": "roscore",
+            "type": "shell",
+            "command": "roscore",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
+        },
+        {
+            "label": "rviz",
+            "type": "shell",
+            "command": "rosrun",
+            "args": [
+                "rviz",
+                "rviz"
+            ],
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
+        },
     ]
 }
