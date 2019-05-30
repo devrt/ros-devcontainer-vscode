@@ -1,0 +1,42 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "catkin_make",
+            "type": "shell",
+            "command": "catkin_make",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": {
+                "fileLocation": "absolute",
+                "pattern": {
+                    "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+                    "file": 1,
+                    "line": 2,
+                    "column": 3,
+                    "severity": 4,
+                    "message": 5
+                }
+            }
+        },
+        {
+            "label": "xserver",
+            "type": "shell",
+            "command": "echo ${input:browser-preview}"
+        }
+    ],
+    "inputs": [
+        {
+            "id": "browser-preview",
+            "type": "command",
+            "command": "browser-preview.openPreview",
+            "args": {
+                "url": "http://localhost:3000/",
+            }
+        }
+    ]
+}

@@ -3,7 +3,7 @@ services:
   xserver:
     image: devrt/xserver
     ports:
-      - "8080:80"
+      - "3000:80"
   workspace:
     build:
       context: .

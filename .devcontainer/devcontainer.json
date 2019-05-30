@@ -9,6 +9,10 @@
 	"extensions": [
 		"ms-vscode.cpptools",
 		"ms-python.python",
+		"ajshort.msg",
+		"smilerobotics.urdf",
+		"auchenberg.vscode-browser-preview",
+		"lkytal.quicktask"
     ],
     //"appPort": [80],
 }

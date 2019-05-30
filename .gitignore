@@ -1,2 +1,4 @@
 .vscode/ipch
 *~
+build
+devel
