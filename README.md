@@ -2,7 +2,7 @@ ROS dev container for vscode
 ----------------------------
 Packed with:
 - Preconfigured docker image for ROS development.
-- Browser assesible X11 server to display gazebo, rviz, rqt (runs on Windows/Mac).
+- Browser accessible X11 server to display gazebo, rviz, rqt (runs on Windows/Mac).
 - Tasks definition to run catkin_make, roscore, rviz commands.
 
 ![screenshot](https://user-images.githubusercontent.com/18067/58605055-8dc84980-82d1-11e9-8ee5-dc969fcb2ae1.png)
@@ -28,7 +28,7 @@ https://code.visualstudio.com/docs/remote/containers
 How to open X11 server screen
 -----------------------------
 
-1. Wait for the container starts.
+1. Wait for the container to start.
 2. Open http://localhost:3000/ using your favorite browser.
 
 If you want browser screen to be integrated with VS Code, use [Browser Preview for VS Code extension](https://marketplace.visualstudio.com/items?itemName=auchenberg.vscode-browser-preview).
