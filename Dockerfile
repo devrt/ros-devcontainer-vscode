@@ -13,12 +13,15 @@ RUN sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb
     curl -L http://packages.osrfoundation.org/gazebo.key | apt-key add -
 
 RUN apt-get update && \
-    apt-get install -y bash-completion less wget clang clang-format python-pip python3-pip sudo && \
+    apt-get install -y bash-completion less wget dos2unix vim-tiny clang clang-format python-pip python3-pip sudo && \
     echo developer ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/developer && \
     chmod 0440 /etc/sudoers.d/developer && \
     apt-get clean
 
 COPY entrypoint.sh /entrypoint.sh
+
+# workaround for git on windows may copy .sh file in crlf line endings
+RUN dos2unix /entrypoint.sh && chmod 755 /entrypoint.sh
 
 USER developer
 WORKDIR /home/developer
