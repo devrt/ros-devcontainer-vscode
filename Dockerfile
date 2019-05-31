@@ -4,6 +4,10 @@ MAINTAINER Yosuke Matsusaka <yosuke.matsusaka@gmail.com>
 
 RUN useradd -m developer
 
+# workaround to enable bash completion for apt-get
+# see: https://github.com/tianon/docker-brew-ubuntu-core/issues/75
+RUN rm /etc/apt/apt.conf.d/docker-clean
+
 # OSRF distribution is better for gazebo
 RUN sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list' && \
     curl -L http://packages.osrfoundation.org/gazebo.key | apt-key add -
@@ -11,7 +15,8 @@ RUN sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb
 RUN apt-get update && \
     apt-get install -y bash-completion less wget clang clang-format python-pip python3-pip sudo && \
     echo developer ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/developer && \
-    chmod 0440 /etc/sudoers.d/developer
+    chmod 0440 /etc/sudoers.d/developer && \
+    apt-get clean
 
 COPY entrypoint.sh /entrypoint.sh
 
