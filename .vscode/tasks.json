@@ -28,7 +28,7 @@
             "type": "shell",
             "command": "echo",
             "args": [
-                "Please open http://localhost:3000/ using your favorite browser",
+                "Please open http://localhost:3000/ using your favorite browser.\n(If you are using Docker Toolbox, open http://192.168.99.100:3000/ instead)",
             ]
         },
         {

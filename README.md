@@ -31,6 +31,10 @@ How to open X11 server screen
 1. Wait for the container to start.
 2. Open http://localhost:3000/ using your favorite browser.
 
+If you are using Docker Toolbox, open the following URL instead:
+
+http://192.168.99.100:3000/
+
 If you want browser screen to be integrated with VS Code, use [Browser Preview for VS Code extension](https://marketplace.visualstudio.com/items?itemName=auchenberg.vscode-browser-preview).
 
 Created by
