@@ -4,6 +4,10 @@ MAINTAINER Yosuke Matsusaka <yosuke.matsusaka@gmail.com>
 
 RUN useradd -m developer
 
+# need to renew the key for some reason
+RUN apt-key del F42ED6FBAB17C654 && \
+    apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
+
 # workaround to enable bash completion for apt-get
 # see: https://github.com/tianon/docker-brew-ubuntu-core/issues/75
 RUN rm /etc/apt/apt.conf.d/docker-clean
