@@ -11,7 +11,8 @@
 		"ms-python.python",
 		"ajshort.msg",
 		"smilerobotics.urdf",
-		"actboy168.tasks"
+		"actboy168.tasks",
+		"brpaz.file-templates"
     ],
     //"appPort": [80],
 }
