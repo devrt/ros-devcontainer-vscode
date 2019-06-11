@@ -6,7 +6,7 @@
         {
             "label": "catkin_make",
             "type": "shell",
-            "command": "catkin_make",
+            "command": "bash -i -c catkin_make",
             "group": {
                 "kind": "build",
                 "isDefault": true
@@ -34,7 +34,7 @@
         {
             "label": "roscore",
             "type": "shell",
-            "command": "roscore",
+            "command": "bash -i -c roscore",
             "presentation": {
                 "reveal": "always",
                 "panel": "new"
@@ -43,11 +43,7 @@
         {
             "label": "rviz",
             "type": "shell",
-            "command": "rosrun",
-            "args": [
-                "rviz",
-                "rviz"
-            ],
+            "command": "bash -i -c 'rosrun rviz rviz'",
             "presentation": {
                 "reveal": "always",
                 "panel": "new"
