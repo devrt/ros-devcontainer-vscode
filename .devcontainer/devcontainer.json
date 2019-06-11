@@ -11,6 +11,7 @@
 		"ms-python.python",
 		"ajshort.msg",
 		"smilerobotics.urdf",
+		"twxs.cmake",
 		"actboy168.tasks",
 		"brpaz.file-templates"
     ],
