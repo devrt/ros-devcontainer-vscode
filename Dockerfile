@@ -5,8 +5,7 @@ MAINTAINER Yosuke Matsusaka <yosuke.matsusaka@gmail.com>
 RUN useradd -m developer
 
 # need to renew the key for some reason
-RUN apt-key del F42ED6FBAB17C654 && \
-    apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
+RUN apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
 
 # workaround to enable bash completion for apt-get
 # see: https://github.com/tianon/docker-brew-ubuntu-core/issues/75
@@ -17,7 +16,7 @@ RUN sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb
     curl -L http://packages.osrfoundation.org/gazebo.key | apt-key add -
 
 RUN apt-get update && \
-    apt-get install -y bash-completion less wget dos2unix vim-tiny clang clang-format python-pip python3-pip sudo && \
+    apt-get install -y bash-completion less wget dos2unix vim-tiny clang clang-format python-pip python3-pip openjdk-8-jdk-headless sudo && \
     echo developer ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/developer && \
     chmod 0440 /etc/sudoers.d/developer && \
     apt-get clean
@@ -36,6 +35,9 @@ ENV SHELL /bin/bash
 # clang shows readable compile error
 ENV CC /usr/bin/clang
 ENV CXX /usr/bin/clang++
+
+# jre is required to use XML editor extension
+ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
 
 # enable bash completion
 RUN git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it && \
