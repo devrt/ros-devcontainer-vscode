@@ -24,6 +24,11 @@
             }
         },
         {
+            "label": "catkin_create_pkg",
+            "type": "shell",
+            "command": "bash -i -c 'cd src && catkin_create_pkg ${input:packageName} ${input:dependingPackages}'"
+        },
+        {
             "label": "xserver",
             "type": "shell",
             "command": "echo",
@@ -48,6 +53,19 @@
                 "reveal": "always",
                 "panel": "new"
             }
+        },
+    ],
+    "inputs": [
+        {
+            "id": "packageName",
+            "type": "promptString",
+            "description": "Please enter the name of new package"
+        },
+        {
+            "id": "dependingPackages",
+            "type": "promptString",
+            "description": "Please enter name of depending packages",
+            "default": "roscpp std_msgs"
         },
     ]
 }
