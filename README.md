@@ -4,7 +4,7 @@ Packed with:
 - Preconfigured docker image for ROS development.
 - Browser accessible X11 server to display gazebo, rviz, rqt (runs on Windows/Mac).
 - Tasks definition to run catkin_make, roscore, rviz commands.
-- Preconfigured code completion for C++, Python, XML (package.xml, launchfiles, URDF).
+- Preconfigured code completion for C++, Python, XML (package.xml, launchfiles, URDF, SDF).
 
 ![screenshot](https://user-images.githubusercontent.com/18067/58605055-8dc84980-82d1-11e9-8ee5-dc969fcb2ae1.png)
 

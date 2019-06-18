@@ -3,7 +3,9 @@
     "files.associations": {
         "*.launch": "xml",
         "*.urdf.xacro": "xml",
-        "*.urdf": "xml"
+        "*.urdf": "xml",
+        "model.config": "xml",
+        "*.sdf": "xml"
     },
     "xml.fileAssociations": [
         {
@@ -21,6 +23,10 @@
         {
             "systemId": "https://raw.githubusercontent.com/ros/urdfdom/master/xsd/urdf.xsd",
             "pattern": "**/*.urdf"
+        },
+        {
+            "systemId": "http://sdformat.org/schemas/root.xsd",
+            "pattern": "**/*.sdf"
         }
     ]
 }
