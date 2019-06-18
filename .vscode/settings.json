@@ -1,5 +1,10 @@
 {
     "fileTemplates.templates_dir": "/workspace/.devcontainer/templates",
+    "files.associations": {
+        "*.launch": "xml",
+        "*.urdf.xacro": "xml",
+        "*.urdf": "xml"
+    },
     "xml.fileAssociations": [
         {
             "systemId": "http://download.ros.org/schema/package_format2.xsd",
@@ -8,6 +13,14 @@
         {
             "systemId": "https://gist.githubusercontent.com/nalt/dfa2abc9d2e3ae4feb82ca5608090387/raw/roslaunch.xsd",
             "pattern": "**/*.launch"
+        },
+        {
+            "systemId": "https://raw.githubusercontent.com/ros/urdfdom/master/xsd/urdf.xsd",
+            "pattern": "**/*.urdf.xacro"
+        },
+        {
+            "systemId": "https://raw.githubusercontent.com/ros/urdfdom/master/xsd/urdf.xsd",
+            "pattern": "**/*.urdf"
         }
     ]
 }
