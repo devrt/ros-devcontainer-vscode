@@ -16,7 +16,11 @@ RUN sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb
     curl -L http://packages.osrfoundation.org/gazebo.key | apt-key add -
 
 RUN apt-get update && \
-    apt-get install -y bash-completion less wget dos2unix vim-tiny clang clang-format python-pip python3-pip openjdk-8-jdk-headless sudo && \
+    apt-get install -y bash-completion less wget dos2unix vim-tiny clang-6.0 clang-format-6.0 clang-tools-6.0 python-pip python3-pip openjdk-8-jdk-headless sudo && \
+    update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-6.0 100 && \
+    update-alternatives --install /usr/bin/clang clang /usr/bin/clang-6.0 100 && \
+    update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-6.0 100 && \
+    update-alternatives --install /usr/bin/clang-format clang-format /usr/bin/clang-format-6.0 100 && \
     echo developer ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/developer && \
     chmod 0440 /etc/sudoers.d/developer && \
     apt-get clean
