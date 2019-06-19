@@ -11,16 +11,25 @@ RUN apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E
 # see: https://github.com/tianon/docker-brew-ubuntu-core/issues/75
 RUN rm /etc/apt/apt.conf.d/docker-clean
 
+RUN apt-get update && \
+    apt-get install apt-transport-https && \
+    apt-get clean
+
 # OSRF distribution is better for gazebo
 RUN sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list' && \
     curl -L http://packages.osrfoundation.org/gazebo.key | apt-key add -
 
+# nice to have nodejs for web goodies
+RUN sh -c 'echo "deb https://deb.nodesource.com/node_11.x `lsb_release -cs` main" > /etc/apt/sources.list.d/nodesource.list' && \
+    curl -sSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
+
 RUN apt-get update && \
-    apt-get install -y bash-completion less wget dos2unix vim-tiny clang-6.0 clang-format-6.0 clang-tools-6.0 python-pip python3-pip openjdk-8-jdk-headless sudo && \
+    apt-get install -y bash-completion less wget dos2unix vim-tiny clang-6.0 clang-format-6.0 clang-tools-6.0 python-pip python3-pip openjdk-8-jdk-headless nodejs sudo && \
     update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-6.0 100 && \
     update-alternatives --install /usr/bin/clang clang /usr/bin/clang-6.0 100 && \
     update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-6.0 100 && \
     update-alternatives --install /usr/bin/clang-format clang-format /usr/bin/clang-format-6.0 100 && \
+    npm install -g yarn && \
     echo developer ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/developer && \
     chmod 0440 /etc/sudoers.d/developer && \
     apt-get clean
