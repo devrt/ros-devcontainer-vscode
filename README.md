@@ -26,6 +26,53 @@ After you installed required softwares:
 For detailed instructions, see:
 https://code.visualstudio.com/docs/remote/containers
 
+If you are behind the proxy
+-----------------------------
+
+Please apply following two settings, if you are using your PC behind the proxy.
+
+1. Proxy setting for the Docker server.
+
+Click Docker Desktop task bar icon > Select `preference` menu item. You will see the following options:
+
+![docker-proxy-settings](https://user-images.githubusercontent.com/18067/59744551-c4302d80-92ad-11e9-9b20-cc873a53a8bb.png)
+
+In most cases, `System proxy` option will work. But if you have problem downloading the docker images, please try `Manual proxy configuration` option.
+
+2. Proxy setting for the devcontainer.
+
+This setting will enable you to use the `apt-get` or the other network commands inside the devcontainer.
+
+First, open `.env.sample` file under the root folder of the cloned project.
+Edit the settings according to your environment.
+Save the file as name `.env`.
+
+Next, open `docker-compose.yml` file under the root folder of the cloned project and uncomment the following lines:
+```yaml
+  workspace:
+    env_file:
+      - .env
+```
+
+How to reset or update the devcontainer
+---------------------------------------
+
+If you want to reset the devcontainer. Please close vscode and enter the following command under the folder of the cloned project:
+```shell
+$ docker-compose down
+```
+
+If you want to update the environment to the most recent version. Please enter the following command under the folder of the cloned project:
+```shell
+$ docker-compose pull
+```
+
+Please be noticed that the `docker-compose down` command will reset your enviromnent including installed `.deb` packages. However, if you write `package.xml` files correctly, you can reinstall all the depending packages by entering the following two commands:
+```shell
+$ rosdep update
+$ rosdep install --from-paths src --ignore-src -r -y
+```
+
 How to open X11 server screen
 -----------------------------
 
