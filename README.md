@@ -62,8 +62,9 @@ If you want to reset the devcontainer. Please close vscode and enter the followi
 $ docker-compose down
 ```
 
-If you want to update the environment to the most recent version. Please enter the following command under the folder of the cloned project:
+If you want to update the environment to the most recent version. Please enter the following commands under the folder of the cloned project:
 ```shell
+$ git pull origin master
 $ docker-compose pull
 ```
 
