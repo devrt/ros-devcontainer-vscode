@@ -1,0 +1,4 @@
+-c
+-I/opt/ros/kinetic/include
+-std=c++11
+-fno-exceptions

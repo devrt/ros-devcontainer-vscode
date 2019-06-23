@@ -24,7 +24,7 @@ RUN sh -c 'echo "deb https://deb.nodesource.com/node_11.x `lsb_release -cs` main
     curl -sSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
 
 RUN apt-get update && \
-    apt-get install -y bash-completion less wget dos2unix vim-tiny clang-6.0 clang-format-6.0 clang-tools-6.0 python-pip python3-pip openjdk-8-jdk-headless nodejs sudo && \
+    apt-get install -y bash-completion less wget dos2unix vim-tiny clang-6.0 clang-format-6.0 clang-tools-6.0 ipython python-pip python3-pip openjdk-8-jdk-headless nodejs sudo && \
     update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-6.0 100 && \
     update-alternatives --install /usr/bin/clang clang /usr/bin/clang-6.0 100 && \
     update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-6.0 100 && \
@@ -33,6 +33,10 @@ RUN apt-get update && \
     echo developer ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/developer && \
     chmod 0440 /etc/sudoers.d/developer && \
     apt-get clean
+
+# basic python packages
+RUN pip3 install pylint && \
+    pip install jedi==0.13.3 pyflakes autopep8 python-language-server
 
 # tweak catkin_create_pkg command to enable XML code completion
 RUN sed -i 's|<package format="2">|<package format="2" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n    xsi:noNamespaceSchemaLocation="http://download.ros.org/schema/package_format2.xsd">|g' /usr/lib/python2.7/dist-packages/catkin_pkg/templates/package.xml.in
@@ -62,11 +66,15 @@ RUN git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it && \
     echo "source /usr/share/bash-completion/bash_completion" >> ~/.bashrc && \
     bash -i -c "bash-it enable completion pip"
 
-# basic python packages
-RUN pip3 install jedi autopep8 pylint
+# install theia web IDE
+COPY .devcontainer/theia-next.package.json /home/developer/package.json
+RUN yarn --cache-folder ./ycache && rm -rf ./ycache && \
+    NODE_OPTIONS="--max_old_space_size=4096" yarn theia build
 
 # enter ROS world
 RUN echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> ~/.bashrc
 
+EXPOSE 3000
+
 ENTRYPOINT [ "/entrypoint.sh" ]
-CMD [ "bash" ]
+CMD [ "yarn", "theia", "start", "/workspace", "--hostname=0.0.0.0"  ]

@@ -8,4 +8,6 @@ sudo groupmod -g $GROUP_ID developer > /dev/null 2>&1
 
 ln -sfn /workspace /home/developer
 
+source /opt/ros/kinetic/setup.bash
+
 exec $@

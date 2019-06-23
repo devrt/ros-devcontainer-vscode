@@ -1,30 +1,47 @@
-ROS dev container for vscode
+ROS dev container for VSCode
 ----------------------------
 Packed with:
 - Preconfigured docker image for ROS development.
 - Browser accessible X11 server to display gazebo, rviz, rqt (runs on Windows/Mac).
 - Tasks definition to run catkin_make, roscore, rviz commands.
 - Preconfigured code completion for C++, Python, XML (package.xml, launchfiles, URDF, SDF).
+- Bonus: WebIDE (Theia) with preconfigured C++, Python, XML completion.
 
+VSCode and devcontainer running on Mac:
 ![screenshot](https://user-images.githubusercontent.com/18067/58605055-8dc84980-82d1-11e9-8ee5-dc969fcb2ae1.png)
 
-How to use this dev container
------------------------------
-First, you have to install VS Code and Docker for Windows/Mac:
+WebIDE (Theia) opened from the local browser while devcontainer is running on the remote server:
+![screenshot-theia](https://user-images.githubusercontent.com/18067/59972289-58a8d180-95c7-11e9-86fd-7d271684e8b3.PNG)
+
+How to use this dev container with VSCode
+-----------------------------------------
+First, you have to install VSCode and Docker for Windows/Mac:
 - https://code.visualstudio.com/
 - https://docs.docker.com/docker-for-mac/
 - https://docs.docker.com/docker-for-windows/
 
 After you installed required softwares:
 
-1. Install ["Remote Development" extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack) on your VS Code.
+1. Install ["Remote Development" extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack) on your VSCode.
 2. Clone this repository by using git command.
-3. Click on the quick actions status bar item (green icon) in the lower left corner of the VS Code.
+3. Click on the quick actions status bar item (green icon) in the lower left corner of the VSCode.
 4. Select "Remote-Containers: Open Folder in Container..." from the command list that appears, and open the root folder of the project you just cloned.
 5. You need to wait a while for container to come up (only required once).
 
 For detailed instructions, see:
 https://code.visualstudio.com/docs/remote/containers
+
+How to use the WebIDE (Theia)
+-----------------------------
+
+1. Enter the following command under the folder of the cloned project:
+```shell
+$ docker-compose up
+```
+
+2. Open http://localhost:3001/ using your favorite browser.
+
+You can also use remote machine to host devcontainer (run `docker-compose` on the remote server and open `http://[remote-server]:3001`).
 
 If you are behind the proxy
 -----------------------------
@@ -68,7 +85,7 @@ $ git pull origin master
 $ docker-compose pull
 ```
 
-Please be noticed that the `docker-compose down` command will reset your enviromnent including installed `.deb` packages. However, if you write `package.xml` files correctly, you can reinstall all the depending packages by entering the following two commands:
+Please be noticed that the `docker-compose down` command will reset your environment including installed `.deb` packages. However, if you write `package.xml` files correctly, you can reinstall all the depending packages by entering the following two commands:
 ```shell
 $ rosdep update
 $ rosdep install --from-paths src --ignore-src -r -y
