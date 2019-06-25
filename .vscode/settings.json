@@ -9,23 +9,23 @@
     },
     "xml.fileAssociations": [
         {
-            "systemId": "http://download.ros.org/schema/package_format2.xsd",
+            "systemId": "/opt/xsd/package.xml/package_format2.xsd",
             "pattern": "package.xml"
         },
         {
-            "systemId": "https://gist.githubusercontent.com/nalt/dfa2abc9d2e3ae4feb82ca5608090387/raw/roslaunch.xsd",
+            "systemId": "/opt/xsd/roslaunch/roslaunch.xsd",
             "pattern": "**/*.launch"
         },
         {
-            "systemId": "https://raw.githubusercontent.com/ros/urdfdom/master/xsd/urdf.xsd",
+            "systemId": "/opt/xsd/urdf/urdf.xsd",
             "pattern": "**/*.urdf.xacro"
         },
         {
-            "systemId": "https://raw.githubusercontent.com/ros/urdfdom/master/xsd/urdf.xsd",
+            "systemId": "/opt/xsd/urdf/urdf.xsd",
             "pattern": "**/*.urdf"
         },
         {
-            "systemId": "http://sdformat.org/schemas/root.xsd",
+            "systemId": "/opt/xsd/sdf/root.xsd",
             "pattern": "**/*.sdf"
         }
     ]

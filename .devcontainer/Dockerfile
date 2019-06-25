@@ -1,3 +1,27 @@
+FROM maven AS xsdcache
+
+# install schema-fetcher
+RUN git clone --depth=1 https://github.com/mfalaize/schema-fetcher.git && \
+    cd schema-fetcher && \
+    mvn install
+
+# fetch XSD file for package.xml
+RUN mkdir -p /opt/xsd/package.xml && \
+    java -jar schema-fetcher/target/schema-fetcher-1.0.0-SNAPSHOT.jar /opt/xsd/package.xml http://download.ros.org/schema/package_format2.xsd
+
+# fetch XSD file for roslaunch
+RUN mkdir -p /opt/xsd/roslaunch && \
+    java -jar schema-fetcher/target/schema-fetcher-1.0.0-SNAPSHOT.jar /opt/xsd/roslaunch https://gist.githubusercontent.com/nalt/dfa2abc9d2e3ae4feb82ca5608090387/raw/roslaunch.xsd
+
+# fetch XSD files for SDF
+RUN mkdir -p /opt/xsd/sdf && \
+    java -jar schema-fetcher/target/schema-fetcher-1.0.0-SNAPSHOT.jar /opt/xsd/sdf http://sdformat.org/schemas/root.xsd && \
+    sed -i 's|http://sdformat.org/schemas/||g' /opt/xsd/sdf/*
+
+# fetch XSD file for URDF
+RUN mkdir -p /opt/xsd/urdf && \
+    java -jar schema-fetcher/target/schema-fetcher-1.0.0-SNAPSHOT.jar /opt/xsd/urdf https://raw.githubusercontent.com/ros/urdfdom/master/xsd/urdf.xsd
+
 FROM osrf/ros:kinetic-desktop
 
 MAINTAINER Yosuke Matsusaka <yosuke.matsusaka@gmail.com>
@@ -41,6 +65,8 @@ RUN pip install jedi==0.13.3 pylint==1.9.4 pyflakes autopep8 python-language-ser
 RUN sed -i 's|<package format="2">|<package format="2" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n    xsi:noNamespaceSchemaLocation="http://download.ros.org/schema/package_format2.xsd">|g' /usr/lib/python2.7/dist-packages/catkin_pkg/templates/package.xml.in
 
 COPY .devcontainer/entrypoint.sh /entrypoint.sh
+
+COPY --from=xsdcache /opt/xsd /opt/xsd
 
 # workaround for git on windows may copy .sh file in crlf line endings
 RUN dos2unix /entrypoint.sh && chmod 755 /entrypoint.sh
