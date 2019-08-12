@@ -93,7 +93,9 @@ RUN git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it && \
 
 # install theia web IDE
 COPY .devcontainer/theia-next.package.json /home/developer/package.json
-RUN yarn --cache-folder ./ycache && rm -rf ./ycache && \
+RUN git clone -b enable-xml-fileassociations --depth=1 https://github.com/devrt/theia-xml-extension.git && \
+    cd theia-xml-extension && yarn --cache-folder ./ycache && rm -rf ./ycache && yarn prepare && cd .. && \
+    yarn --cache-folder ./ycache && rm -rf ./ycache && \
     NODE_OPTIONS="--max_old_space_size=4096" yarn theia build
 
 # enter ROS world

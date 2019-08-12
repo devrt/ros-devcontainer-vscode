@@ -38,7 +38,7 @@
         "@theia/textmate-grammars": "next",
         "@theia/userstorage": "next",
         "@theia/workspace": "next",
-        "@theia/xml": "next"
+        "@theia/xml": "file:///home/developer/theia-xml-extension/xml"
     },
     "devDependencies": {
         "@theia/cli": "next"
