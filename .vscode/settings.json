@@ -1,5 +1,5 @@
 {
-    "fileTemplates.templates_dir": "/workspace/.devcontainer/templates",
+    "fileTemplates.templates_dir": "/home/developer/templates",
     "files.associations": {
         "*.launch": "xml",
         "*.urdf.xacro": "xml",

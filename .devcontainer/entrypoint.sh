@@ -9,6 +9,8 @@ sudo chown -R developer:developer /workspace
 
 ln -sfn /home/developer/.vscode /workspace/.vscode
 
+ln -sfn /home/developer/compile_flags.txt /workspace/compile_flags.txt
+
 ln -sfn /workspace /home/developer/workspace
 
 source /opt/ros/kinetic/setup.bash
