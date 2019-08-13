@@ -91,6 +91,10 @@ RUN git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it && \
     echo "source /usr/share/bash-completion/bash_completion" >> ~/.bashrc && \
     bash -i -c "bash-it enable completion pip"
 
+# global vscode config
+ADD .vscode /home/developer/.vscode
+ADD .vscode /home/developer/.theia
+
 # install theia web IDE
 COPY .devcontainer/theia-next.package.json /home/developer/package.json
 RUN git clone -b enable-xml-fileassociations --depth=1 https://github.com/devrt/theia-xml-extension.git && \

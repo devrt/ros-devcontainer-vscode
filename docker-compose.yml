@@ -11,7 +11,7 @@ services:
     ports:
       - "3001:3000"
     volumes:
-      - .:/workspace
+      - workspace:/workspace
       - ~/.gitconfig:/home/developer/.gitconfig
     environment:
       - DISPLAY=:0
@@ -20,3 +20,5 @@ services:
       - xserver
     depends_on:
       - xserver
+volumes:
+  workspace:
