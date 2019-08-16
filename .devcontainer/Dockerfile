@@ -100,6 +100,7 @@ ADD .devcontainer/templates /home/developer/templates
 # install theia web IDE
 COPY .devcontainer/theia-next.package.json /home/developer/package.json
 RUN git clone -b enable-xml-fileassociations --depth=1 https://github.com/devrt/theia-xml-extension.git && \
+    wget https://bintray.com/api/ui/download/lsp4xml/releases/org/lsp4xml/org.eclipse.lsp4xml/0.8.0/org.eclipse.lsp4xml-0.8.0-uber.jar -O /home/developer/theia-xml-extension/xml/lsp4xml/org.eclipse.lsp4xml-all.jar && \
     cd theia-xml-extension && yarn --cache-folder ./ycache && rm -rf ./ycache && yarn prepare && cd .. && \
     yarn --cache-folder ./ycache && rm -rf ./ycache && \
     NODE_OPTIONS="--max_old_space_size=4096" yarn theia build
