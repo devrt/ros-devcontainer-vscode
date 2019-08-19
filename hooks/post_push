@@ -1,0 +1,6 @@
+#!/bin/bash
+
+if [ "$DOCKER_TAG" = "kinetic-desktop" ]; then
+    docker tag $IMAGE_NAME devrt/ros-devcontainer-vscode:latest
+    docker push devrt/ros-devcontainer-vscode:latest
+done
