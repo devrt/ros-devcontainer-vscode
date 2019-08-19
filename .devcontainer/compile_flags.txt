@@ -1,4 +1,4 @@
 -c
--I/opt/ros/kinetic/include
+-I/opt/ros/$ROS_DISTRO/include
 -std=c++11
 -fno-exceptions

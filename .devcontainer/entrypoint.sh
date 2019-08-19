@@ -9,11 +9,12 @@ sudo chown -R developer:developer /workspace
 
 ln -sfn /home/developer/.vscode /workspace/.vscode
 
-ln -sfn /home/developer/compile_flags.txt /workspace/compile_flags.txt
+rm -f /workspace/compile_flags.txt || true
+sed -e 's@\$ROS_DISTRO@'"$ROS_DISTRO"'@' /home/developer/compile_flags.txt > /workspace/compile_flags.txt
 
 ln -sfn /workspace /home/developer/workspace
 
-source /opt/ros/kinetic/setup.bash
+source /opt/ros/$ROS_DISTRO/setup.bash
 
 mkdir -p /workspace/src && cd /workspace/src && catkin_init_workspace || true
 
