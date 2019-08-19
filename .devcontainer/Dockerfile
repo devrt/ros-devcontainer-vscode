@@ -1,3 +1,5 @@
+ARG BASE_IMAGE=osrf/ros:kinetic-desktop
+
 FROM maven AS xsdcache
 
 # install schema-fetcher
@@ -22,7 +24,7 @@ RUN mkdir -p /opt/xsd/sdf && \
 RUN mkdir -p /opt/xsd/urdf && \
     java -jar schema-fetcher/target/schema-fetcher-1.0.0-SNAPSHOT.jar /opt/xsd/urdf https://raw.githubusercontent.com/devrt/urdfdom/xsd-with-xacro/xsd/urdf.xsd
 
-FROM osrf/ros:kinetic-desktop
+FROM $BASE_IMAGE
 
 MAINTAINER Yosuke Matsusaka <yosuke.matsusaka@gmail.com>
 
