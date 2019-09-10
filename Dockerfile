@@ -61,7 +61,7 @@ RUN apt-get update && \
     apt-get clean
 
 # basic python packages
-RUN pip install jedi==0.13.3 pylint==1.9.4 pyflakes autopep8 python-language-server
+RUN pip install jedi==0.13.3 pylint==1.9.4 pyflakes autopep8 python-language-server Pygments
 
 COPY .devcontainer/entrypoint.sh /entrypoint.sh
 
@@ -79,6 +79,10 @@ ENV CXX /usr/bin/clang++
 
 # jre is required to use XML editor extension
 ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
+
+# colorize less
+RUN echo "export LESS='-R'" >> ~/.bash_profile && \
+    echo "export LESSOPEN='|pygmentize -g %s'" >> ~/.bash_profile
 
 # enable bash completion
 RUN git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it && \
