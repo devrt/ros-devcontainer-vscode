@@ -63,6 +63,9 @@ RUN apt-get update && \
 # basic python packages
 RUN pip install jedi==0.13.3 pylint==1.9.4 pyflakes autopep8 python-language-server Pygments
 
+# use closest mirror for apt updates
+RUN sed -i -e 's/http:\/\/archive/mirror:\/\/mirrors/' -e 's/http:\/\/security/mirror:\/\/mirrors/' -e 's/\/ubuntu\//\/mirrors.txt/' /etc/apt/sources.list
+
 COPY .devcontainer/entrypoint.sh /entrypoint.sh
 
 COPY --from=xsdcache /opt/xsd /opt/xsd
