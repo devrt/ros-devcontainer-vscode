@@ -50,7 +50,7 @@ RUN sh -c 'echo "deb https://deb.nodesource.com/node_11.x `lsb_release -cs` main
     curl -sSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
 
 RUN apt-get update && \
-    apt-get install -y bash-completion less wget vim-tiny iputils-ping net-tools clang-6.0 clang-format-6.0 clang-tools-6.0 ipython python-pip openjdk-8-jdk-headless nodejs sudo && \
+    apt-get install -y bash-completion less wget vim-tiny iputils-ping net-tools clang-6.0 clang-format-6.0 clang-tools-6.0 python-pip openjdk-8-jdk-headless nodejs sudo supervisor && \
     update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-6.0 100 && \
     update-alternatives --install /usr/bin/clang clang /usr/bin/clang-6.0 100 && \
     update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-6.0 100 && \
@@ -61,10 +61,14 @@ RUN apt-get update && \
     apt-get clean
 
 # basic python packages
-RUN pip install jedi==0.13.3 pylint==1.9.4 pyflakes autopep8 python-language-server Pygments
+RUN python -m pip install --upgrade pip && \
+    pip install --ignore-installed pylint==1.9.4 pyflakes autopep8 python-language-server notebook~=5.7 Pygments
 
 # use closest mirror for apt updates
 RUN sed -i -e 's/http:\/\/archive/mirror:\/\/mirrors/' -e 's/http:\/\/security/mirror:\/\/mirrors/' -e 's/\/ubuntu\//\/mirrors.txt/' /etc/apt/sources.list
+
+COPY .devcontainer/theia.conf /etc/supervisor/conf.d/theia.conf
+COPY .devcontainer/jupyter.conf /etc/supervisor/conf.d/jupyter.conf
 
 COPY .devcontainer/entrypoint.sh /entrypoint.sh
 
@@ -110,7 +114,7 @@ RUN git clone -b enable-xml-fileassociations --depth=1 https://github.com/devrt/
 # enter ROS world
 RUN echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> ~/.bashrc
 
-EXPOSE 3000
+EXPOSE 3000 8888
 
 ENTRYPOINT [ "/entrypoint.sh" ]
-CMD [ "yarn", "theia", "start", "/workspace", "--hostname=0.0.0.0"  ]
+CMD [ "sudo", "-E", "supervisord", "-n"  ]

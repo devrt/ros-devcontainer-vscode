@@ -10,6 +10,7 @@ services:
     image: devrt/ros-devcontainer-vscode
     ports:
       - "3001:3000"
+      - "3002:8888"
     volumes:
       - workspace:/workspace
       - ~/.gitconfig:/home/developer/.gitconfig
