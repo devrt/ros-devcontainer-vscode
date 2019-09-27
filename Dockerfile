@@ -103,6 +103,7 @@ ADD .vscode /home/developer/.vscode
 ADD .vscode /home/developer/.theia
 ADD .devcontainer/compile_flags.txt /home/developer/compile_flags.txt
 ADD .devcontainer/templates /home/developer/templates
+RUN sudo chown -R developer:developer /home/developer
 
 # install theia web IDE
 COPY .devcontainer/theia-next.package.json /home/developer/package.json
