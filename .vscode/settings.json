@@ -5,7 +5,8 @@
         "*.urdf.xacro": "xml",
         "*.urdf": "xml",
         "model.config": "xml",
-        "*.sdf": "xml"
+        "*.sdf": "xml",
+        "*.world": "xml"
     },
     "xml.fileAssociations": [
         {
@@ -27,6 +28,10 @@
         {
             "systemId": "/opt/xsd/sdf/root.xsd",
             "pattern": "**/*.sdf"
+        },
+        {
+            "systemId": "/opt/xsd/sdf/root.xsd",
+            "pattern": "**/*.world"
         }
     ]
 }
