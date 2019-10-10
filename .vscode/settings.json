@@ -33,5 +33,6 @@
             "systemId": "/opt/xsd/sdf/root.xsd",
             "pattern": "**/*.world"
         }
-    ]
+    ],
+    "python.pythonPath": "/usr/bin/python"
 }
