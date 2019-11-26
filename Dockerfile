@@ -50,7 +50,7 @@ RUN sh -c 'echo "deb https://deb.nodesource.com/node_11.x `lsb_release -cs` main
     curl -sSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
 
 RUN apt-get update && \
-    apt-get install -y bash-completion less wget vim-tiny iputils-ping net-tools clang-6.0 clang-format-6.0 clang-tools-6.0 python-pip openjdk-8-jdk-headless nodejs sudo supervisor && \
+    apt-get install -y bash-completion less wget vim-tiny iputils-ping net-tools clang-6.0 clang-format-6.0 clang-tools-6.0 python-pip openjdk-8-jdk-headless nodejs sudo supervisor byzanz && \
     update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-6.0 100 && \
     update-alternatives --install /usr/bin/clang clang /usr/bin/clang-6.0 100 && \
     update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-6.0 100 && \
@@ -62,7 +62,7 @@ RUN apt-get update && \
 
 # basic python packages
 RUN python -m pip install --upgrade pip && \
-    pip install --ignore-installed pylint==1.9.4 pyflakes autopep8 python-language-server notebook~=5.7 Pygments
+    pip install --ignore-installed pylint==1.9.4 pyflakes autopep8 python-language-server notebook~=5.7 Pygments nbimporter
 
 # use closest mirror for apt updates
 RUN sed -i -e 's/http:\/\/archive/mirror:\/\/mirrors/' -e 's/http:\/\/security/mirror:\/\/mirrors/' -e 's/\/ubuntu\//\/mirrors.txt/' /etc/apt/sources.list
