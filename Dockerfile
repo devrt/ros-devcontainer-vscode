@@ -3,7 +3,9 @@ ARG BASE_IMAGE=osrf/ros:kinetic-desktop
 FROM maven AS xsdcache
 
 # install schema-fetcher
-RUN git clone --depth=1 https://github.com/mfalaize/schema-fetcher.git && \
+RUN yum -y update && \
+    yum -y install git && \
+    git clone --depth=1 https://github.com/mfalaize/schema-fetcher.git && \
     cd schema-fetcher && \
     mvn install
 
@@ -38,7 +40,7 @@ RUN apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E
 RUN rm /etc/apt/apt.conf.d/docker-clean
 
 RUN apt-get update && \
-    apt-get install apt-transport-https && \
+    apt-get install -y apt-transport-https && \
     apt-get clean
 
 # OSRF distribution is better for gazebo
@@ -62,7 +64,9 @@ RUN apt-get update && \
 
 # basic python packages
 RUN python -m pip install --upgrade pip && \
-    pip install --ignore-installed pylint==1.9.4 pyflakes autopep8 python-language-server notebook~=5.7 Pygments nbimporter
+    pip install --upgrade --ignore-installed pylint==1.9.4 pyflakes autopep8 python-language-server notebook~=5.7 Pygments matplotlib ipywidgets nbimporter
+
+RUN jupyter nbextension enable --py widgetsnbextension
 
 # use closest mirror for apt updates
 RUN sed -i -e 's/http:\/\/archive/mirror:\/\/mirrors/' -e 's/http:\/\/security/mirror:\/\/mirrors/' -e 's/\/ubuntu\//\/mirrors.txt/' /etc/apt/sources.list
@@ -96,7 +100,7 @@ RUN git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it && \
     ~/.bash_it/install.sh --silent && \
     rm ~/.bashrc.bak && \
     echo "source /usr/share/bash-completion/bash_completion" >> ~/.bashrc && \
-    bash -i -c "bash-it enable completion pip"
+    bash -i -c "bash-it enable completion git"
 
 # global vscode config
 ADD .vscode /home/developer/.vscode
@@ -106,11 +110,12 @@ ADD .devcontainer/templates /home/developer/templates
 RUN sudo chown -R developer:developer /home/developer
 
 # install theia web IDE
-COPY .devcontainer/theia-next.package.json /home/developer/package.json
-RUN git clone -b enable-xml-fileassociations --depth=1 https://github.com/devrt/theia-xml-extension.git && \
-    cd theia-xml-extension && yarn --cache-folder ./ycache && rm -rf ./ycache && yarn prepare && cd .. && \
-    yarn --cache-folder ./ycache && rm -rf ./ycache && \
-    NODE_OPTIONS="--max_old_space_size=4096" yarn theia build
+COPY .devcontainer/theia-latest.package.json /home/developer/package.json
+RUN yarn --cache-folder ./ycache && rm -rf ./ycache && \
+    NODE_OPTIONS="--max_old_space_size=4096" yarn theia build ;\
+    yarn theia download:plugins
+
+ENV THEIA_DEFAULT_PLUGINS local-dir:/home/developer/plugins
 
 # enter ROS world
 RUN echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> ~/.bashrc
