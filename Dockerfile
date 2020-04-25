@@ -64,9 +64,10 @@ RUN apt-get update && \
 
 # basic python packages
 RUN python -m pip install --upgrade pip && \
-    pip install --upgrade --ignore-installed pylint==1.9.4 pyflakes autopep8 python-language-server notebook~=5.7 Pygments matplotlib ipywidgets nbimporter
+    pip install --upgrade --ignore-installed --no-cache-dir pylint==1.9.4 autopep8 python-language-server[all] notebook~=5.7 Pygments matplotlib ipywidgets jupyter_contrib_nbextensions nbimporter
 
-RUN jupyter nbextension enable --py widgetsnbextension
+RUN jupyter nbextension enable --py widgetsnbextension && \
+    jupyter contrib nbextension install --system
 
 # use closest mirror for apt updates
 RUN sed -i -e 's/http:\/\/archive/mirror:\/\/mirrors/' -e 's/http:\/\/security/mirror:\/\/mirrors/' -e 's/\/ubuntu\//\/mirrors.txt/' /etc/apt/sources.list
@@ -102,6 +103,12 @@ RUN git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it && \
     echo "source /usr/share/bash-completion/bash_completion" >> ~/.bashrc && \
     bash -i -c "bash-it enable completion git"
 
+RUN git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && \
+    ~/.fzf/install --all
+
+RUN git clone --depth 1 https://github.com/b4b4r07/enhancd.git ~/.enhancd && \
+    echo "source ~/.enhancd/init.sh" >> ~/.bashrc
+
 # global vscode config
 ADD .vscode /home/developer/.vscode
 ADD .vscode /home/developer/.theia
@@ -116,6 +123,11 @@ RUN yarn --cache-folder ./ycache && rm -rf ./ycache && \
     yarn theia download:plugins
 
 ENV THEIA_DEFAULT_PLUGINS local-dir:/home/developer/plugins
+
+# enable jupyter extensions
+RUN jupyter nbextension enable hinterland/hinterland && \
+    jupyter nbextension enable toc2/main && \
+    jupyter nbextension enable code_prettify/autopep8
 
 # enter ROS world
 RUN echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> ~/.bashrc
