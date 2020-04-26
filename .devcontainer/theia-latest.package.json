@@ -63,7 +63,6 @@
         "vscode-builtin-cpp": "https://github.com/theia-ide/vscode-builtin-extensions/releases/download/v1.39.1-prel/cpp-1.39.1-prel.vsix",
         "vscode-builtin-debug-auto-launch": "https://github.com/theia-ide/vscode-builtin-extensions/releases/download/v1.39.1-prel/debug-auto-launch-1.39.1-prel.vsix",
         "vscode-builtin-docker": "https://github.com/theia-ide/vscode-builtin-extensions/releases/download/v1.39.1-prel/docker-1.39.1-prel.vsix",
-        "vscode-builtin-go": "https://github.com/theia-ide/vscode-builtin-extensions/releases/download/v1.39.1-prel/go-1.39.1-prel.vsix",
         "vscode-builtin-ini": "https://github.com/theia-ide/vscode-builtin-extensions/releases/download/v1.39.1-prel/ini-1.39.1-prel.vsix",
         "vscode-builtin-json": "https://github.com/theia-ide/vscode-builtin-extensions/releases/download/v1.39.1-prel/json-1.39.1-prel.vsix",
         "vscode-builtin-log": "https://github.com/theia-ide/vscode-builtin-extensions/releases/download/v1.39.1-prel/log-1.39.1-prel.vsix",
@@ -71,9 +70,6 @@
         "vscode-builtin-markdown": "https://github.com/theia-ide/vscode-builtin-extensions/releases/download/v1.39.1-prel/markdown-1.39.1-prel.vsix",
         "vscode-builtin-merge-conflicts": "https://github.com/theia-ide/vscode-builtin-extensions/releases/download/v1.39.1-prel/merge-conflict-1.39.1-prel.vsix",
         "vscode-builtin-python": "https://github.com/theia-ide/vscode-builtin-extensions/releases/download/v1.39.1-prel/python-1.39.1-prel.vsix",
-        "vscode-builtin-ruby": "https://github.com/theia-ide/vscode-builtin-extensions/releases/download/v1.39.1-prel/ruby-1.39.1-prel.vsix",
-        "vscode-builtin-rust": "https://github.com/theia-ide/vscode-builtin-extensions/releases/download/v1.39.1-prel/rust-1.39.1-prel.vsix",
-        "vscode-builtin-shaderlab": "https://github.com/theia-ide/vscode-builtin-extensions/releases/download/v1.39.1-prel/shaderlab-1.39.1-prel.vsix",
         "vscode-builtin-shellscript": "https://github.com/theia-ide/vscode-builtin-extensions/releases/download/v1.39.1-prel/shellscript-1.39.1-prel.vsix",
         "vscode-builtin-theme-abyss": "https://github.com/theia-ide/vscode-builtin-extensions/releases/download/v1.39.1-prel/theme-abyss-1.39.1-prel.vsix",
         "vscode-builtin-theme-defaults": "https://github.com/theia-ide/vscode-builtin-extensions/releases/download/v1.39.1-prel/theme-defaults-1.39.1-prel.vsix",
@@ -88,9 +84,9 @@
         "vscode-builtin-xml": "https://github.com/theia-ide/vscode-builtin-extensions/releases/download/v1.39.1-prel/xml-1.39.1-prel.vsix",
         "vscode-builtin-yaml": "https://github.com/theia-ide/vscode-builtin-extensions/releases/download/v1.39.1-prel/yaml-1.39.1-prel.vsix",
         "vscode-editorconfig": "https://github.com/theia-ide/editorconfig-vscode/releases/download/v0.14.4/EditorConfig-0.14.4.vsix",
-        "vscode-go": "https://github.com/microsoft/vscode-go/releases/download/0.12.0/Go-0.12.0.vsix",
+        "vscode-cpp": "https://github.com/microsoft/vscode-cpptools/releases/download/0.27.0/cpptools-linux.vsix",
         "vscode-python": "https://github.com/microsoft/vscode-python/releases/download/2020.1.58038/ms-python-release.vsix",
-        "vscode-ruby": "https://github.com/rubyide/vscode-ruby/releases/download/v0.25.0/ruby-0.25.0.vsix",
-        "vscode-xml": "https://github.com/redhat-developer/vscode-xml/releases/download/0.11.0/redhat.vscode-xml-0.11.0.vsix"
+        "vscode-xml": "https://github.com/redhat-developer/vscode-xml/releases/download/0.11.0/redhat.vscode-xml-0.11.0.vsix",
+        "vscode-cmake": "https://github.com/twxs/vs.language.cmake/releases/download/v0.0.16-beta1/cmake-0.0.16.vsix"
     }
 }
