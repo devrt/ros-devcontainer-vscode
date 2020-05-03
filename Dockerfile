@@ -77,6 +77,8 @@ COPY .devcontainer/jupyter.conf /etc/supervisor/conf.d/jupyter.conf
 
 COPY .devcontainer/entrypoint.sh /entrypoint.sh
 
+COPY .devcontainer/restart-simulator.sh /usr/bin/restart-simulator
+
 COPY --from=xsdcache /opt/xsd /opt/xsd
 
 USER developer

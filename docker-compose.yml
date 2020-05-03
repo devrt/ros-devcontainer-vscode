@@ -1,13 +1,28 @@
-version: '2'
+version: '2.3'
 services:
   xserver:
     image: devrt/xserver
+    ipc: host
     ports:
       - "3000:80"
+    healthcheck:
+      test: ["CMD-SHELL", "test -e /tmp/.X11-unix/X0"]
+      interval: "1s"
+      retries: 20
+  simulator:
+    image: devrt/simulator
+    ipc: host
+    environment:
+      - DISPLAY=:0
+    volumes_from:
+      - xserver
+    depends_on:
+      - xserver
   workspace:
     # env_file:
     #   - .env
-    image: devrt/ros-devcontainer-vscode
+    image: devrt/ros-devcontainer-vscode:melodic-desktop
+    ipc: host
     ports:
       - "3001:3000"
       - "3002:8888"
@@ -16,9 +31,10 @@ services:
       - ~/.gitconfig:/home/developer/.gitconfig
     environment:
       - DISPLAY=:0
-      - QT_X11_NO_MITSHM=1
+      - ROS_MASTER_URI=http://simulator:11311/
     volumes_from:
       - xserver
+      - simulator
     depends_on:
       - xserver
 volumes:
