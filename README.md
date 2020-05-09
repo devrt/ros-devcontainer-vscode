@@ -106,3 +106,11 @@ If you want browser screen to be integrated with VS Code, use [Browser Preview f
 Created by
 ----------
 Yosuke Matsusaka (MID Academic Promotions, Inc.)
+
+License
+-------
+Code in this repository (Dockerfile, utility scripts, etc) is distributed under Apache 2.0 license.
+
+Included components are distributed under each different licenses:
+- Theia IDE: EPL or GPL
+- Jupyter notebook: BSD
