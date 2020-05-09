@@ -5,6 +5,7 @@ Packed with:
 - Browser accessible X11 server to display gazebo, rviz, rqt (runs on Windows/Mac).
 - Tasks definition to run catkin_make, roscore, rviz commands.
 - Preconfigured code completion for C++, Python, XML (package.xml, launchfiles, URDF, SDF).
+- Preconfigured simulation environments (Flatland, TurtleBot3, ARIAC, Virtual RobotX, UUV).
 - Bonus: WebIDE (Theia) with preconfigured C++, Python, XML completion.
 
 VSCode and devcontainer running on Mac:
@@ -12,6 +13,25 @@ VSCode and devcontainer running on Mac:
 
 WebIDE (Theia) opened from the local browser while devcontainer is running on the remote server:
 ![screenshot-theia](https://user-images.githubusercontent.com/18067/59972289-58a8d180-95c7-11e9-86fd-7d271684e8b3.PNG)
+
+How to select simulation environment
+-------------------------------------
+You can run preconfigured simulation environment as a docker sidecar container.
+
+Enter following command to select the simulator:
+```shell
+$ ./select-simulator.sh
+```
+
+Preconfigured simulation environment currently includes: Flatland, TurtleBot3, ARIAC, Virtual RobotX, UUV.
+
+See the following index for list of current simulators:
+
+https://github.com/devrt/simulator-index/blob/master/index.yaml
+
+If you want any other simulator, let us know by submitting the issue:
+
+https://github.com/devrt/simulator-index/issues
 
 How to use this dev container with VSCode
 -----------------------------------------
