@@ -33,6 +33,26 @@ If you want any other simulator, let us know by submitting the issue:
 
 https://github.com/devrt/simulator-index/issues
 
+How to use the WebIDE (recommended)
+-------------------------------------
+As of writing, docker-compose support of VSCode is not so stable on all the platforms.
+We recommend using Theia WebIDE since it has complete VSCode function support after 1.0 release.
+
+1. Clone this repository:
+```shell
+$ git clone https://github.com/devrt/ros-devcontainer-vscode.git
+```
+
+2. Enter the following command under the folder of the cloned project:
+```shell
+$ cd ros-devcontainer-vscode
+$ docker-compose up
+```
+
+3. Open http://localhost:3001/ using your favorite browser.
+
+You can also use remote server to host the devcontainer (run `docker-compose up` on the remote server and open `http://[remote-server]:3001`).
+
 How to use this dev container with VSCode
 -----------------------------------------
 First, you have to install VSCode and Docker for Windows/Mac:
@@ -50,18 +70,6 @@ After you installed required softwares:
 
 For detailed instructions, see:
 https://code.visualstudio.com/docs/remote/containers
-
-How to use the WebIDE (Theia)
------------------------------
-
-1. Enter the following command under the folder of the cloned project:
-```shell
-$ docker-compose up
-```
-
-2. Open http://localhost:3001/ using your favorite browser.
-
-You can also use remote machine to host devcontainer (run `docker-compose` on the remote server and open `http://[remote-server]:3001`).
 
 If you are behind the proxy
 -----------------------------
