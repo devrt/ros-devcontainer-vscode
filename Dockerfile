@@ -1,4 +1,4 @@
-ARG BASE_IMAGE=osrf/ros:kinetic-desktop
+ARG BASE_IMAGE=osrf/ros:melodic-desktop
 
 FROM maven AS xsdcache
 
@@ -52,7 +52,7 @@ RUN sh -c 'echo "deb https://deb.nodesource.com/node_11.x `lsb_release -cs` main
     curl -sSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
 
 RUN apt-get update && \
-    apt-get install -y bash-completion less wget vim-tiny iputils-ping net-tools clang-6.0 clang-format-6.0 clang-tools-6.0 python-pip openjdk-8-jdk-headless nodejs sudo supervisor byzanz && \
+    apt-get install -y bash-completion less wget vim-tiny iputils-ping net-tools clang-6.0 clang-format-6.0 clang-tools-6.0 python-pip openjdk-8-jdk-headless nodejs sudo byzanz && \
     update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-6.0 100 && \
     update-alternatives --install /usr/bin/clang clang /usr/bin/clang-6.0 100 && \
     update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-6.0 100 && \
@@ -64,7 +64,7 @@ RUN apt-get update && \
 
 # basic python packages
 RUN python -m pip install --upgrade pip && \
-    pip install --upgrade --ignore-installed --no-cache-dir pylint==1.9.4 autopep8 python-language-server[all] notebook~=5.7 Pygments matplotlib ipywidgets jupyter_contrib_nbextensions nbimporter
+    pip install --upgrade --ignore-installed --no-cache-dir pylint==1.9.4 autopep8 python-language-server[all] notebook~=5.7 Pygments matplotlib ipywidgets jupyter_contrib_nbextensions nbimporter supervisor supervisor_twiddler argcomplete
 
 RUN jupyter nbextension enable --py widgetsnbextension && \
     jupyter contrib nbextension install --system
@@ -72,12 +72,14 @@ RUN jupyter nbextension enable --py widgetsnbextension && \
 # use closest mirror for apt updates
 RUN sed -i -e 's/http:\/\/archive/mirror:\/\/mirrors/' -e 's/http:\/\/security/mirror:\/\/mirrors/' -e 's/\/ubuntu\//\/mirrors.txt/' /etc/apt/sources.list
 
+RUN mkdir -p /etc/supervisor/conf.d
+COPY .devcontainer/supervisord.conf /etc/supervisor/supervisord.conf
 COPY .devcontainer/theia.conf /etc/supervisor/conf.d/theia.conf
 COPY .devcontainer/jupyter.conf /etc/supervisor/conf.d/jupyter.conf
 
 COPY .devcontainer/entrypoint.sh /entrypoint.sh
 
-COPY .devcontainer/restart-simulator.sh /usr/bin/restart-simulator
+COPY .devcontainer/sim.py /usr/bin/sim
 
 COPY --from=xsdcache /opt/xsd /opt/xsd
 
@@ -104,6 +106,8 @@ RUN git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it && \
     rm ~/.bashrc.bak && \
     echo "source /usr/share/bash-completion/bash_completion" >> ~/.bashrc && \
     bash -i -c "bash-it enable completion git"
+
+RUN echo 'eval "$(register-python-argcomplete sim)"' >> ~/.bashrc
 
 RUN git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && \
     ~/.fzf/install --all
@@ -137,4 +141,4 @@ RUN echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> ~/.bashrc
 EXPOSE 3000 8888
 
 ENTRYPOINT [ "/entrypoint.sh" ]
-CMD [ "sudo", "-E", "supervisord", "-n"  ]
+CMD [ "sudo", "-E", "/usr/local/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
