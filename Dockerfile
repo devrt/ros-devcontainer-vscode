@@ -52,7 +52,7 @@ RUN sh -c 'echo "deb https://deb.nodesource.com/node_10.x `lsb_release -cs` main
     curl -sSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
 
 RUN apt-get update && \
-    apt-get install -y bash-completion less wget vim-tiny iputils-ping net-tools clang-6.0 clang-format-6.0 clang-tools-6.0 python-pip openjdk-8-jdk-headless nodejs sudo byzanz && \
+    apt-get install -y bash-completion less wget vim-tiny iputils-ping net-tools git clang-6.0 clang-format-6.0 clang-tools-6.0 openjdk-8-jdk-headless nodejs sudo byzanz && \
     update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-6.0 100 && \
     update-alternatives --install /usr/bin/clang clang /usr/bin/clang-6.0 100 && \
     update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-6.0 100 && \
@@ -63,7 +63,8 @@ RUN apt-get update && \
     apt-get clean
 
 # basic python packages
-RUN python -m pip install --upgrade pip && \
+RUN if [ $(lsb_release -cs) = "focal" ]; then apt-get install -y python-is-python3; fi && \
+    curl -kL https://bootstrap.pypa.io/get-pip.py | python && \
     pip install --upgrade --ignore-installed --no-cache-dir pylint==1.9.4 autopep8 python-language-server[all] notebook~=5.7 Pygments matplotlib ipywidgets jupyter_contrib_nbextensions nbimporter supervisor supervisor_twiddler argcomplete
 
 RUN jupyter nbextension enable --py widgetsnbextension && \
