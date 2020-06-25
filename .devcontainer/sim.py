@@ -38,6 +38,7 @@ if args.command == 'launch':
             'environment': args.env,
             'autostart': 'true',
             'autorestart': 'true',
+            'stopwaitsecs': '30',
             'stdout_logfile': '/dev/stdout',
             'stdout_logfile_maxbytes': '0',
             'stderr_logfile': '/dev/stderr',
