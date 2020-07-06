@@ -33,7 +33,7 @@
             "type": "shell",
             "command": "echo",
             "args": [
-                "Please open http://localhost:3000/ using your favorite browser.\n(If you are using Docker Toolbox, open http://192.168.99.100:3000/ instead)",
+                "Please open http://localhost:3000/ using your favorite browser.\n(If you are using Docker Toolbox, open http://192.168.99.100:3000/ instead)"
             ]
         },
         {
@@ -53,7 +53,7 @@
                 "reveal": "always",
                 "panel": "new"
             }
-        },
+        }
     ],
     "inputs": [
         {
@@ -66,6 +66,6 @@
             "type": "promptString",
             "description": "Please enter name of depending packages",
             "default": "roscpp std_msgs"
-        },
+        }
     ]
 }
