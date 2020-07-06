@@ -52,11 +52,7 @@ RUN sh -c 'echo "deb https://deb.nodesource.com/node_10.x `lsb_release -cs` main
     curl -sSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
 
 RUN apt-get update && \
-    apt-get install -y bash-completion less wget vim-tiny iputils-ping net-tools git clang-6.0 clang-format-6.0 clang-tools-6.0 openjdk-8-jdk-headless nodejs sudo byzanz && \
-    update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-6.0 100 && \
-    update-alternatives --install /usr/bin/clang clang /usr/bin/clang-6.0 100 && \
-    update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-6.0 100 && \
-    update-alternatives --install /usr/bin/clang-format clang-format /usr/bin/clang-format-6.0 100 && \
+    apt-get install -y bash-completion less wget vim-tiny iputils-ping net-tools git openjdk-8-jdk-headless nodejs sudo byzanz && \
     npm install -g yarn && \
     echo developer ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/developer && \
     chmod 0440 /etc/sudoers.d/developer && \
@@ -89,10 +85,6 @@ WORKDIR /home/developer
 
 ENV HOME /home/developer
 ENV SHELL /bin/bash
-
-# clang shows readable compile error
-ENV CC /usr/bin/clang
-ENV CXX /usr/bin/clang++
 
 # jre is required to use XML editor extension
 ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
