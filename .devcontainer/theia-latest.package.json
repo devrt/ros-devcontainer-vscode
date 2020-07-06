@@ -13,7 +13,7 @@
     "dependencies": {
         "@theia/callhierarchy": "latest",
         "@theia/core": "latest",
-        "@theia/cpp": "latest",
+        "@theia/cpp-debug": "latest",
         "@theia/debug": "latest",
         "@theia/editor": "latest",
         "@theia/editor-preview": "latest",
@@ -84,8 +84,8 @@
         "vscode-builtin-xml": "https://github.com/theia-ide/vscode-builtin-extensions/releases/download/v1.39.1-prel/xml-1.39.1-prel.vsix",
         "vscode-builtin-yaml": "https://github.com/theia-ide/vscode-builtin-extensions/releases/download/v1.39.1-prel/yaml-1.39.1-prel.vsix",
         "vscode-editorconfig": "https://github.com/theia-ide/editorconfig-vscode/releases/download/v0.14.4/EditorConfig-0.14.4.vsix",
-        "vscode-cpp": "https://github.com/microsoft/vscode-cpptools/releases/download/0.27.0/cpptools-linux.vsix",
-        "vscode-python": "https://github.com/microsoft/vscode-python/releases/download/2020.1.58038/ms-python-release.vsix",
+        "vscode-cpp": "https://github.com/microsoft/vscode-cpptools/releases/download/0.28.3/cpptools-linux.vsix",
+        "vscode-python": "https://github.com/microsoft/vscode-python/releases/download/2020.6.91350/ms-python-release.vsix",
         "vscode-xml": "https://github.com/redhat-developer/vscode-xml/releases/download/0.11.0/redhat.vscode-xml-0.11.0.vsix",
         "vscode-cmake": "https://github.com/twxs/vs.language.cmake/releases/download/v0.0.16-beta1/cmake-0.0.16.vsix"
     }
