@@ -2,6 +2,7 @@
     "fileTemplates.templates_dir": "/home/developer/templates",
     "files.associations": {
         "*.launch": "xml",
+        "*.test": "xml",
         "*.urdf.xacro": "xml",
         "*.urdf": "xml",
         "model.config": "xml",
