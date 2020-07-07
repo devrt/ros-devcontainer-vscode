@@ -18,6 +18,10 @@
             "pattern": "**/*.launch"
         },
         {
+            "systemId": "/opt/xsd/roslaunch/roslaunch.xsd",
+            "pattern": "**/*.test"
+        },
+        {
             "systemId": "/opt/xsd/urdf/urdf.xsd",
             "pattern": "**/*.urdf.xacro"
         },
