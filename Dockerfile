@@ -3,8 +3,7 @@ ARG BASE_IMAGE=ros:melodic
 FROM maven AS xsdcache
 
 # install schema-fetcher
-RUN yum -y update && \
-    yum -y install git && \
+RUN microdnf install git && \
     git clone --depth=1 https://github.com/mfalaize/schema-fetcher.git && \
     cd schema-fetcher && \
     mvn install
