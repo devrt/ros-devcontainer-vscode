@@ -1,3 +1,3 @@
 #!/bin/bash
-$BASE_TAG=${DOCKER_TAG%"-desktop"}
+BASE_TAG=${DOCKER_TAG%"-desktop"}
 docker build --build-arg BASE_IMAGE=ros:${BASE_TAG} -f Dockerfile -t $IMAGE_NAME .
