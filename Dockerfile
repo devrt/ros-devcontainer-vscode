@@ -1,4 +1,4 @@
-ARG BASE_IMAGE=osrf/ros:melodic-desktop
+ARG BASE_IMAGE=ros:melodic
 
 FROM maven AS xsdcache
 
@@ -40,7 +40,7 @@ RUN apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E
 RUN rm /etc/apt/apt.conf.d/docker-clean
 
 RUN apt-get update && \
-    apt-get install -y apt-transport-https && \
+    apt-get install -y curl apt-transport-https && \
     apt-get clean
 
 # OSRF distribution is better for gazebo
@@ -48,7 +48,7 @@ RUN sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb
     curl -L http://packages.osrfoundation.org/gazebo.key | apt-key add -
 
 # nice to have nodejs for web goodies
-RUN sh -c 'echo "deb https://deb.nodesource.com/node_10.x `lsb_release -cs` main" > /etc/apt/sources.list.d/nodesource.list' && \
+RUN sh -c 'echo "deb https://deb.nodesource.com/node_12.x `lsb_release -cs` main" > /etc/apt/sources.list.d/nodesource.list' && \
     curl -sSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
 
 RUN apt-get update && \
@@ -118,7 +118,7 @@ RUN sudo chown -R developer:developer /home/developer
 # install theia web IDE
 COPY .devcontainer/theia-latest.package.json /home/developer/package.json
 RUN yarn --cache-folder ./ycache && rm -rf ./ycache && \
-    NODE_OPTIONS="--max_old_space_size=4096" yarn theia build ;\
+    NODE_OPTIONS="--max_old_space_size=4096" yarn theia build && \
     yarn theia download:plugins
 
 ENV THEIA_DEFAULT_PLUGINS local-dir:/home/developer/plugins
