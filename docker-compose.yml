@@ -3,6 +3,8 @@ services:
   xserver:
     image: devrt/xserver
     ipc: host
+    security_opt:
+    - seccomp:unconfined
     ports:
     - "3000:80"
     healthcheck:
@@ -12,6 +14,8 @@ services:
   simulator:
     image: devrt/simulator-empty
     ipc: host
+    security_opt:
+    - seccomp:unconfined
     environment:
     - DISPLAY=:0
     volumes_from:
@@ -23,6 +27,8 @@ services:
     #   - .env
     image: devrt/ros-devcontainer-vscode:melodic-desktop
     ipc: host
+    security_opt:
+    - seccomp:unconfined
     ports:
     - "3001:3000"
     - "3002:8888"
