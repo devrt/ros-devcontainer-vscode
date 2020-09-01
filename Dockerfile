@@ -29,6 +29,8 @@ FROM $BASE_IMAGE
 
 MAINTAINER Yosuke Matsusaka <yosuke.matsusaka@gmail.com>
 
+ENV DEBIAN_FRONTEND noninteractive
+
 RUN useradd -m developer
 
 # need to renew the key for some reason
