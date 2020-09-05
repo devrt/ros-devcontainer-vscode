@@ -53,7 +53,7 @@ RUN sh -c 'echo "deb https://deb.nodesource.com/node_12.x `lsb_release -cs` main
     curl -sSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
 
 RUN apt-get update && \
-    apt-get install -y bash-completion less wget vim-tiny iputils-ping net-tools git openjdk-8-jdk-headless nodejs sudo byzanz python-dev ros-$ROS_DISTRO-desktop && \
+    apt-get install -y bash-completion less wget vim-tiny iputils-ping net-tools git openjdk-8-jdk-headless nodejs sudo byzanz python-dev ros-$ROS_DISTRO-desktop ros-$ROS_DISTRO-moveit-commander ros-$ROS_DISTRO-moveit-ros-visualization ros-$ROS_DISTRO-move-base-msgs && \
     npm install -g yarn && \
     echo developer ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/developer && \
     chmod 0440 /etc/sudoers.d/developer && \
@@ -62,7 +62,7 @@ RUN apt-get update && \
 # basic python packages
 RUN if [ $(lsb_release -cs) = "focal" ]; then apt-get install -y python-is-python3; fi && \
     curl -kL https://bootstrap.pypa.io/get-pip.py | python && \
-    pip install --upgrade --ignore-installed --no-cache-dir pylint==1.9.4 autopep8 python-language-server[all] notebook~=5.7 Pygments matplotlib ipywidgets jupyter_contrib_nbextensions nbimporter supervisor supervisor_twiddler argcomplete
+    pip install --upgrade --ignore-installed --no-cache-dir pyassimp pylint==1.9.4 autopep8 python-language-server[all] notebook~=5.7 Pygments matplotlib ipywidgets jupyter_contrib_nbextensions nbimporter supervisor supervisor_twiddler argcomplete
 
 RUN jupyter nbextension enable --py widgetsnbextension && \
     jupyter contrib nbextension install --system
