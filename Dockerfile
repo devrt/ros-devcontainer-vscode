@@ -53,7 +53,7 @@ RUN sh -c 'echo "deb https://deb.nodesource.com/node_12.x `lsb_release -cs` main
     curl -sSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
 
 RUN apt-get update && \
-    apt-get install -y bash-completion less wget vim-tiny iputils-ping net-tools git openjdk-8-jdk-headless nodejs sudo byzanz python-dev ros-$ROS_DISTRO-desktop ros-$ROS_DISTRO-moveit-commander ros-$ROS_DISTRO-moveit-ros-visualization ros-$ROS_DISTRO-move-base-msgs && \
+    apt-get install -y bash-completion less wget vim-tiny iputils-ping net-tools git openjdk-8-jdk-headless nodejs sudo byzanz python-dev ros-$ROS_DISTRO-desktop ros-$ROS_DISTRO-moveit-commander ros-$ROS_DISTRO-moveit-ros-visualization ros-$ROS_DISTRO-move-base-msgs ros-$ROS_DISTRO-ros-numpy && \
     npm install -g yarn && \
     echo developer ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/developer && \
     chmod 0440 /etc/sudoers.d/developer && \
@@ -109,6 +109,9 @@ RUN git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && \
 RUN git clone --depth 1 https://github.com/b4b4r07/enhancd.git ~/.enhancd && \
     echo "source ~/.enhancd/init.sh" >> ~/.bashrc
 
+# init rosdep
+RUN rosdep update
+
 # global vscode config
 ADD .vscode /home/developer/.vscode
 ADD .vscode /home/developer/.theia
@@ -127,7 +130,8 @@ ENV THEIA_DEFAULT_PLUGINS local-dir:/home/developer/plugins
 # enable jupyter extensions
 RUN jupyter nbextension enable hinterland/hinterland && \
     jupyter nbextension enable toc2/main && \
-    jupyter nbextension enable code_prettify/autopep8
+    jupyter nbextension enable code_prettify/autopep8 && \
+    jupyter nbextension enable nbTranslate/main
 
 # enter ROS world
 RUN echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> ~/.bashrc
