@@ -29,6 +29,8 @@ FROM $BASE_IMAGE
 
 MAINTAINER Yosuke Matsusaka <yosuke.matsusaka@gmail.com>
 
+SHELL ["/bin/bash", "-c"]
+
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN useradd -m developer
@@ -52,12 +54,23 @@ RUN sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb
 RUN sh -c 'echo "deb https://deb.nodesource.com/node_12.x `lsb_release -cs` main" > /etc/apt/sources.list.d/nodesource.list' && \
     curl -sSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
 
-RUN apt-get update && \
-    apt-get install -y bash-completion less wget vim-tiny iputils-ping net-tools git openjdk-8-jdk-headless nodejs sudo byzanz python-dev ros-$ROS_DISTRO-desktop ros-$ROS_DISTRO-moveit-commander ros-$ROS_DISTRO-moveit-ros-visualization ros-$ROS_DISTRO-move-base-msgs ros-$ROS_DISTRO-ros-numpy && \
+# install depending packages (install moveit! algorithms on the workspace side, since moveit-commander loads it from the workspace)
+RUN apt-get update && apt-get upgrade -y && \
+    apt-get install -y bash-completion less wget vim-tiny iputils-ping net-tools git openjdk-8-jdk-headless nodejs sudo byzanz python-dev ros-$ROS_DISTRO-desktop ros-$ROS_DISTRO-moveit ros-$ROS_DISTRO-moveit-commander ros-$ROS_DISTRO-moveit-ros-visualization ros-$ROS_DISTRO-trac-ik ros-$ROS_DISTRO-move-base-msgs ros-$ROS_DISTRO-ros-numpy && \
     npm install -g yarn && \
     echo developer ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/developer && \
     chmod 0440 /etc/sudoers.d/developer && \
     apt-get clean
+
+# install bio_ik
+RUN source /opt/ros/$ROS_DISTRO/setup.bash && \
+    mkdir -p /bio_ik_ws/src && \
+    cd /bio_ik_ws/src && \
+    catkin_init_workspace && \
+    git clone --depth=1 https://github.com/TAMS-Group/bio_ik.git && \
+    cd .. && \
+    catkin_make install -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/opt/ros/$ROS_DISTRO -DCATKIN_ENABLE_TESTING=0 && \
+    cd / && rm -r /bio_ik_ws
 
 # basic python packages
 RUN if [ $(lsb_release -cs) = "focal" ]; then apt-get install -y python-is-python3; fi && \
