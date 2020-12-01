@@ -41,5 +41,6 @@
     ],
     "C_Cpp.intelliSenseCacheSize": 0,
     "C_Cpp.intelliSenseEngine": "Tag Parser",
-    "python.pythonPath": "/usr/bin/python"
+    "python.pythonPath": "/usr/bin/python",
+    "python.showStartPage": false
 }
