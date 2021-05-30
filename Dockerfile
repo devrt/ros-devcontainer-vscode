@@ -35,16 +35,16 @@ ENV DEBIAN_FRONTEND noninteractive
 
 RUN useradd -m developer
 
-# need to renew the key for some reason
-RUN apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
-
 # workaround to enable bash completion for apt-get
 # see: https://github.com/tianon/docker-brew-ubuntu-core/issues/75
 RUN rm /etc/apt/apt.conf.d/docker-clean
 
-RUN apt-get update && \
+RUN apt-get update || true && \
     apt-get install -y curl apt-transport-https && \
     apt-get clean
+
+# need to renew the key for some reason
+RUN curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | apt-key add -
 
 # OSRF distribution is better for gazebo
 RUN sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list' && \
@@ -73,8 +73,8 @@ RUN source /opt/ros/$ROS_DISTRO/setup.bash && \
     cd / && rm -r /bio_ik_ws
 
 # basic python packages
-RUN if [ $(lsb_release -cs) = "focal" ]; then apt-get install -y python-is-python3; fi && \
-    curl -kL https://bootstrap.pypa.io/get-pip.py | python && \
+RUN if [ $(lsb_release -cs) = "focal" ]; then apt-get install -y python-is-python3; curl -kL https://bootstrap.pypa.io/get-pip.py | python; \
+    else curl -kL https://bootstrap.pypa.io/pip/2.7/get-pip.py | python; fi && \
     pip install --upgrade --ignore-installed --no-cache-dir pyassimp pylint==1.9.4 autopep8 python-language-server[all] notebook~=5.7 Pygments matplotlib ipywidgets jupyter_contrib_nbextensions nbimporter supervisor supervisor_twiddler argcomplete
 
 RUN jupyter nbextension enable --py widgetsnbextension && \
