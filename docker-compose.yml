@@ -33,7 +33,7 @@ services:
     - "3001:3000"
     - "3002:8888"
     volumes:
-    - workspace:/workspace
+    - .:/workspace:cached
     - ~/.gitconfig:/home/developer/.gitconfig
     environment:
     - DISPLAY=:0
