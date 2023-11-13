@@ -25,7 +25,7 @@ services:
   workspace:
     # env_file:
     #   - .env
-    image: devrt/ros-devcontainer-vscode:melodic-desktop
+    image: devrt/ros-devcontainer-vscode:noetic-desktop
     ipc: host
     security_opt:
     - seccomp:unconfined
