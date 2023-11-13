@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        version: [melodic, noetic]
+        version: [noetic]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
