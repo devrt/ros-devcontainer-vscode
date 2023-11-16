@@ -1,4 +1,5 @@
 {
+    "workbench.colorTheme": "Monokai",
     "fileTemplates.templates_dir": "/home/developer/templates",
     "files.associations": {
         "*.launch": "xml",
@@ -41,6 +42,7 @@
     ],
     "C_Cpp.intelliSenseCacheSize": 0,
     "C_Cpp.intelliSenseEngine": "Tag Parser",
-    "python.pythonPath": "/usr/bin/python",
-    "python.showStartPage": false
+    "python.analysis.extraPaths": [
+        "/opt/ros/noetic/lib/python3/dist-packages"
+    ]
 }

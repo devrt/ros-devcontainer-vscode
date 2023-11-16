@@ -6,12 +6,12 @@ Packed with:
 - Tasks definition to run catkin_make, roscore, rviz commands.
 - Preconfigured code completion for C++, Python, XML (package.xml, launchfiles, URDF, SDF).
 - Preconfigured simulation environments (Flatland, TurtleBot3, ARIAC, Virtual RobotX, UUV).
-- Bonus: WebIDE (Theia) with preconfigured C++, Python, XML completion.
+- Bonus: WebIDE (code-server) with preconfigured C++, Python, XML completion.
 
 VSCode and devcontainer running on Mac:
 ![screenshot](https://user-images.githubusercontent.com/18067/58605055-8dc84980-82d1-11e9-8ee5-dc969fcb2ae1.png)
 
-WebIDE (Theia) opened from the local browser while devcontainer is running on the remote server:
+WebIDE opened from the local browser while devcontainer is running on the remote server:
 ![screenshot-theia](https://user-images.githubusercontent.com/18067/59972289-58a8d180-95c7-11e9-86fd-7d271684e8b3.PNG)
 
 How to select simulation environment
@@ -36,7 +36,7 @@ https://github.com/devrt/simulator-index/issues
 How to use the WebIDE (recommended)
 -------------------------------------
 As of writing, docker-compose support of VSCode is not so stable on all the platforms.
-We recommend using Theia WebIDE since it has complete VSCode function support after 1.0 release.
+We recommend using code-server WebIDE since it has complete VSCode function support.
 
 1. Clone this repository:
 ```shell
@@ -140,5 +140,4 @@ License
 Code in this repository (Dockerfile, utility scripts, etc) is distributed under Apache 2.0 license.
 
 Included components are distributed under each different licenses:
-- Theia IDE: EPL or GPL
 - Jupyter notebook: BSD

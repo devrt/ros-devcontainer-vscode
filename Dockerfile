@@ -56,9 +56,15 @@ RUN sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb
 RUN sh -c 'echo "deb https://deb.nodesource.com/node_14.x `lsb_release -cs` main" > /etc/apt/sources.list.d/nodesource.list' && \
     curl -sSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
 
+# vscode
+RUN curl -sSL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg && \
+    install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg && \
+    sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list' 88 \
+    rm -f packages.microsoft.gpg
+
 # install depending packages
 RUN apt-get update && apt-get upgrade -y && \
-    apt-get install -y bash-completion less wget vim-tiny iputils-ping net-tools openssh-client git openjdk-8-jdk-headless nodejs sudo imagemagick byzanz python-dev libsecret-1-dev && \
+    apt-get install -y bash-completion less wget language-pack-en code vim-tiny iputils-ping net-tools openssh-client git openjdk-8-jdk-headless nodejs sudo imagemagick byzanz python-dev libsecret-1-dev && \
     npm install -g yarn && \
     apt-get clean
 
@@ -82,7 +88,7 @@ RUN useradd -m developer && \
 
 # install depending packages (install moveit! algorithms on the workspace side, since moveit-commander loads it from the workspace)
 RUN apt-get update && apt-get upgrade -y && \
-    apt-get install -y ros-$ROS_DISTRO-desktop ros-$ROS_DISTRO-moveit ros-$ROS_DISTRO-moveit-commander ros-$ROS_DISTRO-moveit-ros-visualization ros-$ROS_DISTRO-trac-ik ros-$ROS_DISTRO-move-base-msgs ros-$ROS_DISTRO-ros-numpy && \
+    apt-get install -y ros-$ROS_DISTRO-desktop ros-$ROS_DISTRO-gazebo-msgs ros-$ROS_DISTRO-moveit ros-$ROS_DISTRO-moveit-commander ros-$ROS_DISTRO-moveit-ros-visualization ros-$ROS_DISTRO-trac-ik ros-$ROS_DISTRO-move-base-msgs ros-$ROS_DISTRO-ros-numpy && \
     apt-get clean
 
 # install bio_ik
@@ -98,7 +104,7 @@ RUN source /opt/ros/$ROS_DISTRO/setup.bash && \
 # configure services
 RUN mkdir -p /etc/supervisor/conf.d
 COPY .devcontainer/supervisord.conf /etc/supervisor/supervisord.conf
-COPY .devcontainer/theia.conf /etc/supervisor/conf.d/theia.conf
+COPY .devcontainer/code-server.conf /etc/supervisor/conf.d/code-server.conf
 COPY .devcontainer/jupyter.conf /etc/supervisor/conf.d/jupyter.conf
 
 COPY .devcontainer/entrypoint.sh /entrypoint.sh
@@ -140,18 +146,15 @@ RUN rosdep update
 
 # global vscode config
 ADD .vscode /home/developer/.vscode
-ADD .vscode /home/developer/.theia
+ADD .vscode /home/developer/.vscode-server
 ADD .devcontainer/compile_flags.txt /home/developer/compile_flags.txt
 ADD .devcontainer/templates /home/developer/templates
 RUN sudo chown -R developer:developer /home/developer
 
-# install theia web IDE
-COPY .devcontainer/theia-latest.package.json /home/developer/package.json
-RUN yarn --cache-folder ./ycache && rm -rf ./ycache && \
-    NODE_OPTIONS="--max_old_space_size=4096" yarn theia build && \
-    yarn theia download:plugins
-
-ENV THEIA_DEFAULT_PLUGINS local-dir:/home/developer/plugins
+RUN code --install-extension ms-vscode.cpptools-extension-pack && \
+    code --install-extension ms-python.python && \
+    code --install-extension redhat.vscode-xml && \
+    cp -r /home/developer/.vscode/extensions /home/developer/.vscode-server/extensions
 
 # enable jupyter extensions
 RUN jupyter nbextension enable hinterland/hinterland && \
