@@ -91,6 +91,11 @@ RUN apt-get update && apt-get upgrade -y && \
     apt-get install -y ros-$ROS_DISTRO-desktop ros-$ROS_DISTRO-gazebo-msgs ros-$ROS_DISTRO-moveit ros-$ROS_DISTRO-moveit-commander ros-$ROS_DISTRO-moveit-ros-visualization ros-$ROS_DISTRO-trac-ik ros-$ROS_DISTRO-move-base-msgs ros-$ROS_DISTRO-ros-numpy && \
     apt-get clean
 
+# temporal hack to fix ros_numpy problem
+RUN if [ $(lsb_release -cs) = "focal" ]; then \
+        curl -sSL https://raw.githubusercontent.com/eric-wieser/ros_numpy/master/src/ros_numpy/point_cloud2.py > /opt/ros/$ROS_DISTRO/lib/python3/dist-packages/ros_numpy/point_cloud2.py; \
+    fi
+
 # install bio_ik
 RUN source /opt/ros/$ROS_DISTRO/setup.bash && \
     mkdir -p /bio_ik_ws/src && \
