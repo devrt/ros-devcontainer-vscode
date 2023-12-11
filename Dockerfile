@@ -151,15 +151,14 @@ RUN rosdep update
 
 # global vscode config
 ADD .vscode /home/developer/.vscode
-ADD .vscode /home/developer/.vscode-server
+RUN ln -s /home/developer/.vscode /home/developer/.vscode-server
 ADD .devcontainer/compile_flags.txt /home/developer/compile_flags.txt
 ADD .devcontainer/templates /home/developer/templates
 RUN sudo chown -R developer:developer /home/developer
 
 RUN code --install-extension ms-vscode.cpptools-extension-pack && \
     code --install-extension ms-python.python && \
-    code --install-extension redhat.vscode-xml && \
-    cp -r /home/developer/.vscode/extensions /home/developer/.vscode-server/extensions
+    code --install-extension redhat.vscode-xml
 
 # enable jupyter extensions
 RUN jupyter nbextension enable hinterland/hinterland && \
