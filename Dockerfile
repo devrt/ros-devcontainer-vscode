@@ -129,10 +129,6 @@ ENV SHELL /bin/bash
 # jre is required to use XML editor extension
 ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
 
-# colorize less
-RUN echo "export LESS='-R'" >> ~/.bash_profile && \
-    echo "export LESSOPEN='|pygmentize -g %s'" >> ~/.bash_profile
-
 # enable bash completion
 RUN git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it && \
     ~/.bash_it/install.sh --silent && \
@@ -145,8 +141,15 @@ RUN echo 'eval "$(register-python-argcomplete sim)"' >> ~/.bashrc
 RUN git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && \
     ~/.fzf/install --all
 
-RUN git clone --depth 1 https://github.com/b4b4r07/enhancd.git ~/.enhancd && \
-    echo "source ~/.enhancd/init.sh" >> ~/.bashrc
+#RUN git clone --depth 1 https://github.com/b4b4r07/enhancd.git ~/.enhancd && \
+#    echo "source ~/.enhancd/init.sh" >> ~/.bashrc
+
+# colorize less
+RUN lesspipe >> ~/.bashrc && \
+    echo "export LESS='-R'" >> ~/.bashrc && \
+    echo "export PYGMENTIZE_STYLE='monokai'" >> ~/.bashrc && \
+    curl -sSL https://raw.githubusercontent.com/CoeJoder/lessfilter-pygmentize/master/.lessfilter > ~/.lessfilter && \
+    chmod 755 ~/.lessfilter
 
 # init rosdep
 RUN rosdep update
@@ -158,8 +161,8 @@ ADD .devcontainer/compile_flags.txt /home/developer/compile_flags.txt
 ADD .devcontainer/templates /home/developer/templates
 RUN sudo chown -R developer:developer /home/developer
 
-RUN code --install-extension ms-vscode.cpptools-extension-pack && \
-    code --install-extension ms-python.python && \
+RUN code --install-extension ms-python.python && \
+    code --install-extension ms-vscode.cpptools-extension-pack && \
     code --install-extension redhat.vscode-xml
 
 # enable jupyter extensions
