@@ -70,7 +70,9 @@ RUN apt-get update && apt-get upgrade -y && \
 
 # basic python packages
 RUN if [ $(lsb_release -cs) = "focal" ]; then \
-        apt-get install -y python-is-python3; \
+        apt-get update; \
+        apt-get install -y python-is-python3 python3-catkin-tools python3-colcon-common-extensions; \
+        apt-get clean; \
         curl -kL https://bootstrap.pypa.io/get-pip.py | python; \
     else \
         curl -kL https://bootstrap.pypa.io/pip/2.7/get-pip.py | python; \
