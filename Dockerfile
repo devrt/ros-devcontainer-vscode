@@ -7,6 +7,7 @@ RUN apt update && \
     apt install -y git && \
     git clone --depth=1 https://github.com/mfalaize/schema-fetcher.git && \
     cd schema-fetcher && \
+    sed -i 's|>1.7<|>1.8<|g' pom.xml && \
     mvn install
 
 # fetch XSD file for package.xml
