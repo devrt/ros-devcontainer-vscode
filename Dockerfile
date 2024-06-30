@@ -17,6 +17,10 @@ RUN mkdir -p /opt/xsd/package.xml && \
 RUN mkdir -p /opt/xsd/roslaunch && \
     java -jar schema-fetcher/target/schema-fetcher-1.0.0-SNAPSHOT.jar /opt/xsd/roslaunch https://gist.githubusercontent.com/nalt/dfa2abc9d2e3ae4feb82ca5608090387/raw/roslaunch.xsd
 
+# fetch XSD file for ros2launch
+RUN mkdir -p /opt/xsd/ros2launch && \
+    java -jar schema-fetcher/target/schema-fetcher-1.0.0-SNAPSHOT.jar /opt/xsd/ros2launch https://raw.githubusercontent.com/ros2/design/gh-pages/articles/specs/launch.0.1.1.xsd
+
 # fetch XSD files for SDF
 RUN mkdir -p /opt/xsd/sdf && \
     java -jar schema-fetcher/target/schema-fetcher-1.0.0-SNAPSHOT.jar /opt/xsd/sdf http://sdformat.org/schemas/root.xsd && \
@@ -172,6 +176,14 @@ RUN jupyter nbextension enable hinterland/hinterland && \
     jupyter nbextension enable nbTranslate/main && \
     mkdir -p /home/developer/.ipython/profile_default && \
     echo "c.Completer.use_jedi = False" >> /home/developer/.ipython/profile_default/ipython_kernel_config.py
+
+# ROS goodies
+RUN echo alias rte="rostopic list | fzf --preview 'rostopic echo -c {}'" >> ~/.bashrc
+RUN echo alias rti="rostopic list | fzf --preview 'rostopic info {}'" >> ~/.bashrc
+RUN echo alias rni="rosnode list | fzf --preview 'rosnode info {}'" >> ~/.bashrc
+RUN echo alias rsi="rosservice list | fzf --preview 'rosservice info {}'" >> ~/.bashrc
+RUN echo alias rmi="rosmsg list | fzf --preview 'rosmsg info {}'" >> ~/.bashrc
+RUN echo alias rcd="roscd \$(rospack list-names | fzf --preview='rospack find {} && pygmentize \$(rospack find {})/package.xml')" >> ~/.bashrc
 
 # enter ROS world
 RUN echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> ~/.bashrc

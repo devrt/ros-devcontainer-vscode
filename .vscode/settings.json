@@ -3,6 +3,7 @@
     "fileTemplates.templates_dir": "/home/developer/templates",
     "files.associations": {
         "*.launch": "xml",
+        "*.launch.xml": "xml",
         "*.test": "xml",
         "*.urdf.xacro": "xml",
         "*.urdf": "xml",
@@ -22,6 +23,10 @@
         {
             "systemId": "/opt/xsd/roslaunch/roslaunch.xsd",
             "pattern": "**/*.test"
+        },
+        {
+            "systemId": "/opt/xsd/ros2launch/launch.0.1.1.xsd",
+            "pattern": "**/*.launch.xml"
         },
         {
             "systemId": "/opt/xsd/urdf/urdf.xsd",
