@@ -179,12 +179,12 @@ RUN jupyter nbextension enable hinterland/hinterland && \
     echo "c.Completer.use_jedi = False" >> /home/developer/.ipython/profile_default/ipython_kernel_config.py
 
 # ROS goodies
-RUN echo alias rte="rostopic list | fzf --preview 'rostopic echo -c {}'" >> ~/.bashrc
-RUN echo alias rti="rostopic list | fzf --preview 'rostopic info {}'" >> ~/.bashrc
-RUN echo alias rni="rosnode list | fzf --preview 'rosnode info {}'" >> ~/.bashrc
-RUN echo alias rsi="rosservice list | fzf --preview 'rosservice info {}'" >> ~/.bashrc
-RUN echo alias rmi="rosmsg list | fzf --preview 'rosmsg info {}'" >> ~/.bashrc
-RUN echo alias rcd="roscd \$(rospack list-names | fzf --preview='rospack find {} && pygmentize \$(rospack find {})/package.xml')" >> ~/.bashrc
+RUN echo "alias rte='rostopic list | fzf --preview \"rostopic echo -c {}\"'" >> ~/.bashrc
+RUN echo "alias rti='rostopic list | fzf --preview \"rostopic info {}\"'" >> ~/.bashrc
+RUN echo "alias rni='rosnode list | fzf --preview \"rosnode info {}\"'" >> ~/.bashrc
+RUN echo "alias rsi='rosservice list | fzf --preview \"rosservice info {}\"'" >> ~/.bashrc
+RUN echo "alias rmi='rosmsg list | fzf --preview \"rosmsg info {}\"'" >> ~/.bashrc
+RUN echo "alias rcd='roscd \$(rospack list-names | fzf --preview=\"rospack find {} && pygmentize \\\$(rospack find {})/package.xml\")'" >> ~/.bashrc
 
 # enter ROS world
 RUN echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> ~/.bashrc
